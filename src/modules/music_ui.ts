@@ -1,7 +1,7 @@
-import { sceneMessageBus, sceneState } from './game'
-import { UIOpenTime } from './music'
+import { sceneMessageBus, sceneState } from '../game'
+import { UIOpenTime } from '../music'
 
-const screenSpaceUI = new UICanvas()
+export const screenSpaceUI = new UICanvas()
 screenSpaceUI.visible = true
 
 const imageTexture = new Texture('images/dj-TX.png')
@@ -116,7 +116,7 @@ stop.onClick = new OnClick(() => {
   sceneMessageBus.emit('stop', {})
 })
 
-console.log(engine)
+//console.log(engine)
 
 // export const inventoryContainer = new UIContainerStack(container)
 // inventoryContainer.spacing = 30

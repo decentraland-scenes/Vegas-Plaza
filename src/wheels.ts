@@ -16,6 +16,8 @@ export class WheelsTimerSystem implements ISystem {
   }
 }
 
+//engine.addSystem(new WheelsTimerSystem())
+
 export function resetWheelAnims() {
   playwheel.stop()
   booth1AnimState.stop()

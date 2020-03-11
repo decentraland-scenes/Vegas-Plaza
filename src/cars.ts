@@ -16,6 +16,8 @@ export class CarsTimerSystem implements ISystem {
   }
 }
 
+engine.addSystem(new CarsTimerSystem())
+
 export function resetCarAnims() {
   playSportCar_01.stop()
   playAstonMartin_01.stop()
