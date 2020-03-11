@@ -1,6 +1,6 @@
 import { CarsTimerSystem } from './cars'
 import { WheelsTimerSystem } from './wheels'
-import { FloatingTextShape } from './ui'
+import { FloatingTextShape } from './music_ui'
 import { song1, song2, song3, playSong } from './music'
 
 export const sceneMessageBus = new MessageBus()
@@ -139,3 +139,26 @@ sceneMessageBus.on('sendGameState', (state: syncData) => {
     }
   }
 })
+
+//////////////////  MACHINES
+
+import { overalyUI } from './modules/DecentralAPI'
+import { Slots } from './slots/Slots'
+import { Roulette } from './roulette/Roulette'
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+// create the game instance and pass top bet amount and jackpot multiplication factors
+// (in payout mode the top bet amount is obtained from the blockchain)
+const instanceSlots = new Slots(20, [250, 15, 8, 4])
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+// create the roulette table and roulette UI, and set the maximum bet amount
+// (in payout mode the maximum bet amount is obtained from the blockchain)
+const instanceRoulette = new Roulette(1000)
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+// create the Overlay UI and pass it the game instances
+overalyUI([instanceSlots, instanceRoulette])

@@ -1,5 +1,5 @@
 import { sceneMessageBus, sceneState } from './game'
-import { background } from './ui'
+import { background } from './music_ui'
 
 export var UIOpenTime = 0
 
