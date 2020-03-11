@@ -1,5 +1,4 @@
-import { CarsTimerSystem } from './cars'
-import { WheelsTimerSystem } from './wheels'
+import { CarsTimerSystem, WheelsTimerSystem } from './cars'
 import { FloatingTextShape } from './ui'
 import { song1, song2, song3, playSong } from './music'
 
@@ -23,7 +22,7 @@ log(sceneState)
 
 engine.addSystem(new CarsTimerSystem())
 
-//engine.addSystem(new WheelsTimerSystem())
+engine.addSystem(new WheelsTimerSystem())
 
 //add Static Base
 let plaza = new Entity()
