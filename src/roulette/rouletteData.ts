@@ -3,8 +3,8 @@ const rouletteData = [
   /////////////////////////////////////////////////////////////////////////////////////////
   // first floor roulette tables
   {
-    position: [15, 1, 15],
-    yRotation: -90
+    position: [20, 0, 320 - 130],
+    yRotation: -135
   }
 ]
 

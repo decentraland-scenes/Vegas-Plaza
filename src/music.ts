@@ -1,7 +1,27 @@
-import { sceneMessageBus, sceneState } from './game'
 import { background } from './music_ui'
+import { FloatingTextShape } from './music_ui'
 
 export var UIOpenTime = 0
+
+export const sceneMessageBus = new MessageBus()
+
+type syncData = {
+  carTimer: number
+  wheelsTimer: number
+  elevatorTimer: number
+  songPlaying: number
+  bannerText: string
+}
+
+export let sceneState: syncData = {
+  carTimer: 1800 / 30,
+  wheelsTimer: 1200 / 30,
+  elevatorTimer: 820 / 30,
+  songPlaying: 0,
+  bannerText: 'Write something'
+}
+
+log(sceneState)
 
 ///// Sound clips
 
@@ -663,3 +683,45 @@ sceneMessageBus.on('stop', () => {
 //   )
 // )
 // engine.addEntity(cubeTest)
+
+//// SYNC CARS AND MUSIC
+
+let isSynced: boolean = false
+
+//let timesToShareData = 5 // after sharing w 3 others, no longer shares state?
+
+// To get the initial state of the scene when joining
+sceneMessageBus.emit('askGameState', {})
+
+// To return the initial state of the scene to new players
+sceneMessageBus.on('askGameState', () => {
+  //   if (timesToShareData > 0) {
+  //     timesToShareData -= 1
+  const state: syncData = {
+    carTimer: sceneState.carTimer,
+    wheelsTimer: sceneState.wheelsTimer,
+    elevatorTimer: sceneState.elevatorTimer,
+    songPlaying: sceneState.songPlaying,
+    bannerText: sceneState.bannerText
+  }
+  sceneMessageBus.emit('sendGameState', state)
+  //   }
+})
+
+// adjust state
+sceneMessageBus.on('sendGameState', (state: syncData) => {
+  if (!isSynced) {
+    isSynced = true
+    sceneState.carTimer = state.carTimer
+    sceneState.wheelsTimer = state.wheelsTimer
+    sceneState.elevatorTimer = state.elevatorTimer
+    sceneState.songPlaying = state.songPlaying
+    sceneState.bannerText = state.bannerText
+    FloatingTextShape.value = state.bannerText
+    if (state.songPlaying > 0) {
+      let songClip =
+        state.songPlaying == 1 ? song1 : state.songPlaying == 1 ? song2 : song3
+      playSong(songClip, state.songPlaying)
+    }
+  }
+})

@@ -1,6 +1,6 @@
-import { getProvider } from '@decentraland/web3-provider'
+//import { getProvider } from '@decentraland/web3-provider'
 //import { getUserAccount } from '@decentraland/EthereumController';
-import { OverlayUI } from './OverlayUI'
+import { OverlayUI } from '.././music_ui'
 import { WSConnection } from './WebSocket'
 
 let provider

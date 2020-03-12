@@ -1,30 +1,6 @@
-import { FloatingTextShape } from './music_ui'
+import { AnimsTimerSystem } from './cars'
 
-import { CarsTimerSystem, WheelsTimerSystem } from './cars'
-
-import { song1, song2, song3, playSong } from './music'
-
-export const sceneMessageBus = new MessageBus()
-
-type syncData = {
-  carTimer: number
-  wheelsTimer: number
-  songPlaying: number
-  bannerText: string
-}
-
-export let sceneState: syncData = {
-  carTimer: 1800 / 30,
-  wheelsTimer: 1200 / 30,
-  songPlaying: 0,
-  bannerText: 'Write something'
-}
-
-log(sceneState)
-
-engine.addSystem(new CarsTimerSystem())
-
-engine.addSystem(new WheelsTimerSystem())
+engine.addSystem(new AnimsTimerSystem())
 
 //add Static Base
 let plaza = new Entity()
@@ -99,48 +75,6 @@ engine.addEntity(LightsShip)
 
 engine.addEntity(LightsShip)
 
-//// Wheeel booths
-
-//// SYNC CARS AND MUSIC
-
-let isSynced: boolean = false
-
-//let timesToShareData = 5 // after sharing w 3 others, no longer shares state?
-
-// To get the initial state of the scene when joining
-sceneMessageBus.emit('askGameState', {})
-
-// To return the initial state of the scene to new players
-sceneMessageBus.on('askGameState', () => {
-  //   if (timesToShareData > 0) {
-  //     timesToShareData -= 1
-  const state: syncData = {
-    carTimer: sceneState.carTimer,
-    wheelsTimer: sceneState.wheelsTimer,
-    songPlaying: sceneState.songPlaying,
-    bannerText: sceneState.bannerText
-  }
-  sceneMessageBus.emit('sendGameState', state)
-  //   }
-})
-
-// adjust state
-sceneMessageBus.on('sendGameState', (state: syncData) => {
-  if (!isSynced) {
-    isSynced = true
-    sceneState.carTimer = state.carTimer
-    sceneState.wheelsTimer = state.wheelsTimer
-    sceneState.songPlaying = state.songPlaying
-    sceneState.bannerText = state.bannerText
-    //FloatingTextShape.value = state.bannerText
-    if (state.songPlaying > 0) {
-      let songClip =
-        state.songPlaying == 1 ? song1 : state.songPlaying == 1 ? song2 : song3
-      playSong(songClip, state.songPlaying)
-    }
-  }
-})
-
 //////////////////  MACHINES
 
 import { overalyUI } from './modules/DecentralAPI'
@@ -163,3 +97,15 @@ const instanceRoulette = new Roulette(1000)
 /////////////////////////////////////////////////////////////////////////////////////////
 // create the Overlay UI and pass it the game instances
 overalyUI([instanceSlots, instanceRoulette])
+
+// let testCube = new Entity()
+// testCube.addComponent(new BoxShape())
+// testCube.addComponent(
+//   new Transform({
+//     position: new Vector3(223, 0, 102),
+//     scale: new Vector3(4, 4, 4)
+//   })
+// )
+// engine.addEntity(testCube)
+
+//console.log(engine)

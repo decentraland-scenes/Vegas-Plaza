@@ -1,8 +1,12 @@
-import { sceneState } from './game'
+import { sceneState } from './music'
 
 export const totalCarTime: number = 1800 / 30
 
-export class CarsTimerSystem implements ISystem {
+export const totalWheelsTimer: number = 1200 / 30
+
+export const totalElevatorTimer: number = 820 / 30
+
+export class AnimsTimerSystem implements ISystem {
   update(dt: number) {
     sceneState.carTimer -= dt
     if (sceneState.carTimer < 0) {
@@ -10,24 +14,19 @@ export class CarsTimerSystem implements ISystem {
       resetCarAnims()
       log('RESETTING CARS')
     }
-    // } else {
-    //   log(sceneState.carTimer)
-    //}
+    sceneState.wheelsTimer -= dt
+    if (sceneState.wheelsTimer < 0) {
+      sceneState.wheelsTimer = totalWheelsTimer
+      resetWheelAnims()
+      log('RESETTING WHEELS')
+    }
+    sceneState.elevatorTimer -= dt
+    if (sceneState.elevatorTimer < 0) {
+      sceneState.elevatorTimer = totalElevatorTimer
+      resetElevatorAnims()
+      log('RESETTING ELEVATOR')
+    }
   }
-}
-
-export function resetCarAnims() {
-  playSportCar_01.stop()
-  playAstonMartin_01.stop()
-  playLambo_01.stop()
-  playPoliceCar_01.stop()
-  playAstonMartin_02.stop()
-
-  playSportCar_01.play()
-  playAstonMartin_01.play()
-  playLambo_01.play()
-  playPoliceCar_01.play()
-  playAstonMartin_02.play()
 }
 
 /// Cars
@@ -138,44 +137,6 @@ engine.addEntity(AstonMartin_02)
 //////////////////////
 //WHEEEL
 /////////////////////
-
-export const totalWheelsTimer: number = 1200 / 30
-
-export class WheelsTimerSystem implements ISystem {
-  update(dt: number) {
-    sceneState.wheelsTimer -= dt
-    if (sceneState.wheelsTimer < 0) {
-      sceneState.wheelsTimer = totalWheelsTimer
-      resetWheelAnims()
-      log('RESETTING WHEELS')
-    }
-    // } else {
-    //   log(sceneState.wheelsTimer)
-    //}
-  }
-}
-
-export function resetWheelAnims() {
-  playwheel.stop()
-  booth1AnimState.stop()
-  booth2AnimState.stop()
-  booth3AnimState.stop()
-  booth4AnimState.stop()
-  booth5AnimState.stop()
-  booth6AnimState.stop()
-  booth7AnimState.stop()
-  booth8AnimState.stop()
-
-  playwheel.play()
-  booth1AnimState.play()
-  booth2AnimState.play()
-  booth3AnimState.play()
-  booth4AnimState.play()
-  booth5AnimState.play()
-  booth6AnimState.play()
-  booth7AnimState.play()
-  booth8AnimState.play()
-}
 
 //add Wheel
 let wheel = new Entity()
@@ -349,3 +310,68 @@ Booth_08.addComponent(booth8Anim)
 let booth8AnimState = new AnimationState('Booth_08_Action')
 booth8Anim.addClip(booth8AnimState)
 engine.addEntity(Booth_08)
+
+///////////  ELEVATOR
+
+//add Elevator
+let Elevator = new Entity()
+Elevator.addComponent(new GLTFShape('models/Elevator.glb'))
+Elevator.addComponent(
+  new Transform({
+    position: new Vector3(160, 0, 160)
+  })
+)
+engine.addEntity(Elevator)
+//add Lift
+let Lift = new Entity()
+Lift.addComponent(new GLTFShape('models/Lift.glb'))
+const liftAnim = new AnimationState('Lift_Action', { looping: true })
+Lift.addComponent(new Animator()).addClip(liftAnim)
+
+Lift.addComponent(
+  new Transform({
+    position: new Vector3(160, 0, 160)
+  })
+)
+engine.addEntity(Lift)
+
+export function resetCarAnims() {
+  playSportCar_01.stop()
+  playAstonMartin_01.stop()
+  playLambo_01.stop()
+  playPoliceCar_01.stop()
+  playAstonMartin_02.stop()
+
+  playSportCar_01.play()
+  playAstonMartin_01.play()
+  playLambo_01.play()
+  playPoliceCar_01.play()
+  playAstonMartin_02.play()
+}
+
+export function resetWheelAnims() {
+  playwheel.stop()
+  booth1AnimState.stop()
+  booth2AnimState.stop()
+  booth3AnimState.stop()
+  booth4AnimState.stop()
+  booth5AnimState.stop()
+  booth6AnimState.stop()
+  booth7AnimState.stop()
+  booth8AnimState.stop()
+
+  playwheel.play()
+  booth1AnimState.play()
+  booth2AnimState.play()
+  booth3AnimState.play()
+  booth4AnimState.play()
+  booth5AnimState.play()
+  booth6AnimState.play()
+  booth7AnimState.play()
+  booth8AnimState.play()
+}
+
+function resetElevatorAnims() {
+  liftAnim.stop()
+  liftAnim.play()
+}
