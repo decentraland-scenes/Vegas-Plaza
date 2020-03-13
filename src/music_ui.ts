@@ -6,6 +6,8 @@ screenSpaceUI.visible = true
 
 const imageTexture = new Texture('images/dj-TX.png')
 
+const messageTexture = new Texture('images/UI_TX.png')
+
 export const background = new UIImage(screenSpaceUI, imageTexture)
 background.name = 'background'
 background.width = 1024
@@ -13,12 +15,11 @@ background.height = '512px'
 background.hAlign = 'center'
 background.vAlign = 'center'
 background.sourceLeft = 0
-background.sourceTop = 470
+background.sourceTop = 1024 / 2
 background.sourceWidth = 1024
 background.sourceHeight = 380
 background.visible = false
-
-background.isPointerBlocker = true
+background.isPointerBlocker = false
 
 // export const container = new UIContainerRect(screenSpaceUI)
 // container.width = '40%'
@@ -39,6 +40,7 @@ closeIcon.sourceWidth = 128
 closeIcon.sourceHeight = 128
 closeIcon.sourceLeft = 0
 closeIcon.sourceTop = 0
+closeIcon.positionX = -40
 closeIcon.isPointerBlocker = true
 closeIcon.onClick = new OnClick(() => {
   background.visible = false
@@ -122,10 +124,18 @@ const input = Input.instance
 //button down event
 input.subscribe('BUTTON_DOWN', ActionButton.POINTER, false, e => {
   const currentTime = +Date.now()
-  const isOpen = background.visible
+  let isOpen: boolean
+  if (background.visible || messagebg.visible) {
+    isOpen = true
+  } else {
+    isOpen = false
+  }
+
   if (isOpen && currentTime - UIOpenTime > 100) {
     background.visible = false
     background.isPointerBlocker = false
+    messagebg.visible = false
+    messagebg.isPointerBlocker = false
     log('clicked on the close image ', background.visible)
   }
 })
@@ -138,45 +148,60 @@ FloatingTextShape.color = new Color3(1000, 0, 0)
 FloatingText.addComponent(FloatingTextShape)
 FloatingText.addComponent(
   new Transform({
-    position: new Vector3(160, 12, 55),
-    scale: new Vector3(4, 4, 4),
+    position: new Vector3(160, 2.5, 55.55),
+    scale: new Vector3(1, 1, 1),
     rotation: Quaternion.Euler(0, 180, 0)
   })
 )
 engine.addEntity(FloatingText)
 
-const message = new UIInputText(screenSpaceUI)
+const messagebg = new UIImage(screenSpaceUI, messageTexture)
+messagebg.name = 'messagebackground'
+messagebg.width = 1024
+messagebg.height = 1024 / 4
+messagebg.hAlign = 'center'
+messagebg.vAlign = 'center'
+messagebg.sourceLeft = 0
+messagebg.sourceTop = 0
+messagebg.sourceWidth = 1024
+messagebg.sourceHeight = 1024 / 4
+messagebg.visible = false
+messagebg.isPointerBlocker = false
+
+export const message = new UIInputText(messagebg)
 message.name = 'message'
-message.width = '800px'
-message.height = '128px'
+message.width = '650px'
+message.height = '100px'
 message.hAlign = 'center'
 message.vAlign = 'center'
-message.positionY = 0
-message.fontSize = 40
+message.positionY = -30
+message.fontSize = 30
 message.vTextAlign = 'center'
 message.hTextAlign = 'center'
+message.color = Color4.FromHexString('#53508F88')
+message.placeholder = 'Write something'
 // stop.sourceLeft = 0
 // stop.sourceTop = 384
 // stop.sourceWidth = 1024
 // stop.sourceHeight = 128
-message.isPointerBlocker = false
-message.visible = false
+message.isPointerBlocker = true
+message.visible = true
 message.onTextSubmit = new OnTextSubmit(x => {
   //FloatingTextShape.value = x.text
   let newText = x.text.substr(0, 50)
   sceneMessageBus.emit('newText', { text: newText })
 })
 
-const instructions = new UIText(message)
-instructions.name = 'messageInst'
-instructions.width = '400px'
-instructions.height = '128px'
-instructions.hAlign = 'center'
-instructions.vAlign = 'center'
-instructions.hTextAlign = 'center'
-instructions.positionY = -30
-instructions.fontSize = 40
-instructions.value = 'Write something and press enter'
+// const instructions = new UIText(message)
+// instructions.name = 'messageInst'
+// instructions.width = '400px'
+// instructions.height = '128px'
+// instructions.hAlign = 'center'
+// instructions.vAlign = 'center'
+// instructions.hTextAlign = 'center'
+// instructions.positionY = -30
+// instructions.fontSize = 40
+// instructions.value = 'Write something and press enter'
 
 sceneMessageBus.on('newText', x => {
   sceneState.bannerText = x.text
@@ -184,19 +209,19 @@ sceneMessageBus.on('newText', x => {
 })
 
 let UIOpener = new Entity()
-UIOpener.addComponent(new BoxShape())
+UIOpener.addComponent(new GLTFShape('models/Message.glb'))
 UIOpener.addComponent(
   new Transform({
-    position: new Vector3(160, 1, 65),
-    scale: new Vector3(1, 1, 1),
-    rotation: Quaternion.Euler(0, 180, 0)
+    position: new Vector3(160, 0, 160),
+    scale: new Vector3(1, 1, 1)
   })
 )
 UIOpener.addComponent(
   new OnPointerDown(
     e => {
-      message.visible = true
-      message.isPointerBlocker = true
+      UIOpenTime = +Date.now()
+      messagebg.visible = true
+      messagebg.isPointerBlocker = true
     },
     {
       button: ActionButton.POINTER,
@@ -351,6 +376,21 @@ class NotificationUI {
     this.notificationButtonImg.onClick = new OnClick(() => {
       this.setNotificationText('')
     })
+  }
+  hide() {
+    this.notificationBack.visible = false
+    this.notificationBackImg.visible = false
+    this.notificationText.visible = false
+    this.notificationButton.visible = false
+    this.notificationButtonImg.visible = false
+  }
+
+  show() {
+    this.notificationBack.visible = true
+    this.notificationBackImg.visible = true
+    this.notificationText.visible = true
+    this.notificationButton.visible = true
+    this.notificationButtonImg.visible = true
   }
 
   setNotificationText(text: string) {

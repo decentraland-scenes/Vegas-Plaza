@@ -40,9 +40,9 @@ let button9 = new AudioClip('sounds/bitconnect-sound.mp3')
 
 let fireEffect = new AudioClip('sounds/fire-sound.mp3')
 
-export let song1 = new AudioClip('sounds/Vexento.mp3')
-export let song2 = new AudioClip('sounds/Vexento.mp3')
-export let song3 = new AudioClip('sounds/Vexento.mp3')
+export let song1 = new AudioClip('sounds/Get_Ready.mp3')
+export let song2 = new AudioClip('sounds/Run.mp3')
+export let song3 = new AudioClip('sounds/Skyline.mp3')
 
 export enum Songs {
   song1,
