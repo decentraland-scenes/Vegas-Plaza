@@ -5,6 +5,10 @@ const rouletteData = [
   {
     position: [20, 0, 320 - 130],
     yRotation: -135
+  },
+  {
+    position: [51, 0, 208],
+    yRotation: 90
   }
 ]
 

@@ -1,4 +1,5 @@
 import { AnimsTimerSystem } from './cars'
+import utils from '../node_modules/decentraland-ecs-utils/index'
 
 engine.addSystem(new AnimsTimerSystem())
 
@@ -98,14 +99,53 @@ const instanceRoulette = new Roulette(1000)
 // create the Overlay UI and pass it the game instances
 overalyUI([instanceSlots, instanceRoulette])
 
-// let testCube = new Entity()
-// testCube.addComponent(new BoxShape())
-// testCube.addComponent(
+//console.log(engine)
+
+// const camera = Camera.instance
+
+// class CameraTrackSystem {
+//   update() {
+//     log(camera.position)
+//   }
+// }
+
+// engine.addSystem(new CameraTrackSystem())
+
+////////  turn casino UI on or off
+
+// //create entity
+// const casinoUITrigger = new Entity()
+// casinoUITrigger.addComponent(new BoxShape())
+// casinoUITrigger.getComponent(BoxShape).withCollisions = false
+// casinoUITrigger.addComponent(
 //   new Transform({
-//     position: new Vector3(223, 0, 102),
-//     scale: new Vector3(4, 4, 4)
+//     position: new Vector3(150, 0, 30),
+//     scale: new Vector3(20, 20, 20)
 //   })
 // )
-// engine.addEntity(testCube)
 
-//console.log(engine)
+// // create trigger area object, setting size and relative position
+// let triggerBox = new utils.TriggerBoxShape(Vector3.One(), Vector3.Zero())
+
+// //create trigger for entity
+// casinoUITrigger.addComponent(
+//   new utils.TriggerComponent(
+//     triggerBox, //shape
+//     0, //layer
+//     0, //triggeredByLayer
+//     null, //onTriggerEnter
+//     null, //onTriggerExit
+//     () => {
+//       //onCameraEnter
+// 	  overalyUI.show()
+
+//     },
+//     ()  => {
+// 		//onCameraExit
+// 		overalyUI.hide()
+// 	}
+//   )
+// )
+
+// //add entity to engine
+// engine.addEntity(casinoUITrigger)

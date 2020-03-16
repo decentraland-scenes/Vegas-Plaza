@@ -34,7 +34,7 @@ let button3 = new AudioClip('sounds/electric-sound.mp3')
 let button4 = new AudioClip('sounds/horn.mp3')
 let button5 = new AudioClip('sounds/laser.mp3')
 let button6 = new AudioClip('sounds/oh-yeah.mp3')
-let button7 = new AudioClip('sounds/orchestra-hit.mp3')
+let button7 = new AudioClip('sounds/kick.mp3')
 let button8 = new AudioClip('sounds/wasa-wasa-wasa.mp3')
 let button9 = new AudioClip('sounds/bitconnect-sound.mp3')
 
@@ -508,7 +508,7 @@ sound7Button.addComponent(
     },
     {
       button: ActionButton.POINTER,
-      hoverText: 'Orchestra'
+      hoverText: 'Kick'
     }
   )
 )

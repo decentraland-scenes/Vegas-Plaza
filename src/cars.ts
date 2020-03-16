@@ -150,7 +150,7 @@ wheel.addComponent(
 )
 const wheelAnimator = new Animator()
 wheel.addComponent(wheelAnimator)
-let playwheel = new AnimationState('ObservationWheel_ArmatureAction')
+let playwheel = new AnimationState('Wheel_action')
 wheelAnimator.addClip(playwheel)
 //playwheel.play()
 engine.addEntity(wheel)

@@ -3,64 +3,84 @@ const slotsData = [
   /////////////////////////////////////////////////////////////////////////////////////////
   // first floor slots
   {
-    position: [31, 0, 320 - 115],
-    yRotation: 180,
-    themeID: 3
-  },
-  {
-    position: [21.4, 0, 320 - 128.25],
-    yRotation: 0,
-    themeID: 3
-  },
-  {
-    position: [14, 0, 150],
-    yRotation: -90,
-    themeID: 3
-  },
-  {
-    position: [16, 0, 150],
-    yRotation: 90,
-    themeID: 3
-  },
-  {
-    position: [5, 0, 140],
-    yRotation: 180,
-    themeID: 11
-  },
-  {
-    position: [5, 0, 160],
-    yRotation: 0,
-    themeID: 11
-  },
-  {
-    position: [6, 0, 150],
-    yRotation: -90,
-    themeID: 11
-  },
-  {
-    position: [6, 0, 150],
-    yRotation: 90,
-    themeID: 11
-  },
-  {
-    position: [15, 0, 100],
+    position: [27.65, 0, 217],
     yRotation: 180,
     themeID: 9
   },
   {
-    position: [15, 0, 100],
+    position: [27.65, 0, 219],
     yRotation: 0,
     themeID: 9
   },
   {
-    position: [14, 0, 100],
+    position: [26.65, 0, 218],
     yRotation: -90,
     themeID: 9
   },
   {
-    position: [16, 0, 100],
+    position: [28.65, 0, 218],
     yRotation: 90,
     themeID: 9
+  },
+  {
+    position: [46.5, 0, 217],
+    yRotation: 180,
+    themeID: 4
+  },
+  {
+    position: [46.5, 0, 219],
+    yRotation: 0,
+    themeID: 4
+  },
+  {
+    position: [45.5, 0, 218],
+    yRotation: -90,
+    themeID: 4
+  },
+  {
+    position: [47.5, 0, 218],
+    yRotation: 90,
+    themeID: 4
+  },
+  {
+    position: [27.65, 0, 198.15],
+    yRotation: 180,
+    themeID: 4
+  },
+  {
+    position: [27.65, 0, 200.15],
+    yRotation: 0,
+    themeID: 4
+  },
+  {
+    position: [26.65, 0, 199.15],
+    yRotation: -90,
+    themeID: 4
+  },
+  {
+    position: [28.65, 0, 199.15],
+    yRotation: 90,
+    themeID: 4
+  },
+  {
+    position: [46.5, 0, 198.15],
+    yRotation: 180,
+    themeID: 25
+  },
+  {
+    position: [46.5, 0, 200.15],
+    yRotation: 0,
+    themeID: 25
+  },
+  {
+    position: [45.5, 0, 199.15],
+    yRotation: -90,
+    themeID: 25
+  },
+  {
+    position: [47.5, 0, 199.15],
+    yRotation: 90,
+    themeID: 25
   }
 ]
 

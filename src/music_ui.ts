@@ -1,5 +1,6 @@
 import utils from '../node_modules/decentraland-ecs-utils/index'
 import { sceneMessageBus, sceneState, UIOpenTime } from './music'
+import { overalyUI } from './modules/DecentralAPI'
 
 export const screenSpaceUI = new UICanvas()
 screenSpaceUI.visible = true
@@ -144,7 +145,7 @@ input.subscribe('BUTTON_DOWN', ActionButton.POINTER, false, e => {
 
 const FloatingText = new Entity()
 export let FloatingTextShape = new TextShape('Write something')
-FloatingTextShape.color = new Color3(1000, 0, 0)
+FloatingTextShape.color = Color3.FromHexString('#8040E2')
 FloatingText.addComponent(FloatingTextShape)
 FloatingText.addComponent(
   new Transform({
