@@ -1,7 +1,8 @@
 {
   "display": {
     "title": "Vegas Plaza",
-    "favicon": "favicon_asset"
+    "favicon": "favicon_asset",
+    "navmapThumbnail": "https://decentraland.org/images/thumbnail/las-vegas-plaza.png"
   },
   "contact": {
     "name": "Decentraland",

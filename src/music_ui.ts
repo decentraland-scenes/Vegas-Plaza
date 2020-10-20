@@ -149,7 +149,7 @@ FloatingTextShape.color = Color3.FromHexString('#8040E2')
 FloatingText.addComponent(FloatingTextShape)
 FloatingText.addComponent(
   new Transform({
-    position: new Vector3(160, 2.5, 55.55),
+    position: new Vector3(4, 2.5, 4),
     scale: new Vector3(1, 1, 1),
     rotation: Quaternion.Euler(0, 180, 0)
   })
@@ -213,7 +213,7 @@ let UIOpener = new Entity()
 UIOpener.addComponent(new GLTFShape('models/Message.glb'))
 UIOpener.addComponent(
   new Transform({
-    position: new Vector3(160, 0, 160),
+    position: new Vector3(8, 0, 8),
     scale: new Vector3(1, 1, 1)
   })
 )

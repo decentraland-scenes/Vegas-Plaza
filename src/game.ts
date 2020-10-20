@@ -8,7 +8,7 @@ let plaza = new Entity()
 plaza.addComponent(new GLTFShape('models/VegasPlaza.glb'))
 plaza.addComponent(
   new Transform({
-    position: new Vector3(160, 0, 160)
+    position: new Vector3(160, 0, 160),
   })
 )
 
@@ -21,7 +21,7 @@ FortuneCat.addComponent(
   new Transform({
     position: new Vector3(160, 0, 160),
     scale: new Vector3(1, 1, 1),
-    rotation: Quaternion.Euler(0, 0, 0)
+    rotation: Quaternion.Euler(0, 0, 0),
   })
 )
 const FortuneCatAnimator = new Animator()
@@ -40,7 +40,7 @@ Ship.addComponent(
   new Transform({
     position: new Vector3(160, 0, 160),
     scale: new Vector3(1, 1, 1),
-    rotation: Quaternion.Euler(0, 0, 0)
+    rotation: Quaternion.Euler(0, 0, 0),
   })
 )
 const ShipAnimator = new Animator()
@@ -63,7 +63,7 @@ LightsShip.addComponent(
   new Transform({
     position: new Vector3(160, 0, 160),
     scale: new Vector3(1, 1, 1),
-    rotation: Quaternion.Euler(0, 0, 0)
+    rotation: Quaternion.Euler(0, 0, 0),
   })
 )
 const LightsShipAnimator = new Animator()
@@ -81,6 +81,7 @@ engine.addEntity(LightsShip)
 import { overalyUI } from './modules/DecentralAPI'
 import { Slots } from './slots/Slots'
 import { Roulette } from './roulette/Roulette'
+import { addScreen } from './modules/video'
 
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -149,3 +150,16 @@ overalyUI([instanceSlots, instanceRoulette])
 
 // //add entity to engine
 // engine.addEntity(casinoUITrigger)
+
+/// VIDEO SCEREEN
+
+addScreen()
+
+//////// HACK TO LOG POSITIONS
+
+class CameraTrackSystem implements ISystem {
+  update() {
+    log(Camera.instance.position)
+  }
+}
+engine.addSystem(new CameraTrackSystem())

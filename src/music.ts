@@ -688,24 +688,25 @@ sceneMessageBus.on('stop', () => {
 
 let isSynced: boolean = false
 
+let instanceId: number = Math.floor(Math.random() * 40000)
+
 //let timesToShareData = 5 // after sharing w 3 others, no longer shares state?
 
 // To get the initial state of the scene when joining
-sceneMessageBus.emit('askGameState', {})
+sceneMessageBus.emit('askGameState', { id: instanceId })
 
 // To return the initial state of the scene to new players
-sceneMessageBus.on('askGameState', () => {
-  //   if (timesToShareData > 0) {
-  //     timesToShareData -= 1
-  const state: syncData = {
-    carTimer: sceneState.carTimer,
-    wheelsTimer: sceneState.wheelsTimer,
-    elevatorTimer: sceneState.elevatorTimer,
-    songPlaying: sceneState.songPlaying,
-    bannerText: sceneState.bannerText
+sceneMessageBus.on('askGameState', action => {
+  if (!instanceId === action.id) {
+    const state: syncData = {
+      carTimer: sceneState.carTimer,
+      wheelsTimer: sceneState.wheelsTimer,
+      elevatorTimer: sceneState.elevatorTimer,
+      songPlaying: sceneState.songPlaying,
+      bannerText: sceneState.bannerText
+    }
+    sceneMessageBus.emit('sendGameState', state)
   }
-  sceneMessageBus.emit('sendGameState', state)
-  //   }
 })
 
 // adjust state
